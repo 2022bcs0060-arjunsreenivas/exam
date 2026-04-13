@@ -55,6 +55,6 @@ jobs:
       
       - name: Run completed
         run: |
-          echo "Run completed by: ARJUN SREENIVAS - 2022BCS0060" >>$GITUB_STEP_SUMMARY
+          echo "Run completed by: ARJUN SREENIVAS - 2022BCS0060" >>$GITHUB_STEP_SUMMARY
 
         
