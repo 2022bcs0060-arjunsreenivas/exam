@@ -1,0 +1,59 @@
+name: 2022BCS0060_EXAM
+
+on:
+  push:
+    branches: ['main']
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  train:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup python
+        uses: actions/setup-python@v5
+
+      - name: Install dependency
+        run: |
+          pip install --uprade pip
+          pip install -r requirements.txt
+      
+      - name: Train model
+        run: |
+          python train.py
+
+      - name: Print metrics
+        run: | 
+          cat output/metrics.json >> $GITHUB_STEP_SUMMARY
+        
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with: 
+          name: "2022BCS0060_ARJUN_SREENIVAS"
+          path: output
+
+
+  report:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: "2022BCS0060_ARJUN_SREENIVAS"
+          path: output
+      
+      - name: Run completed
+        run: |
+          echo "Run completed by: ARJUN SREENIVAS - 2022BCS0060" >>$GITUB_STEP_SUMMARY
+
+        
